@@ -31,7 +31,54 @@ class _HomeState extends State<Home> {
     razorpay.clear();
   }
 
-  void openCheckout() {
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () => textFocusController.unfocus(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("Razor Pay"),
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 200,
+                child: TextField(
+                  focusNode: textFocusController,
+                  cursorRadius: Radius.zero,
+                  textAlign: TextAlign.center,
+                  controller: textEditingController,
+                  decoration: InputDecoration(hintText: "Amount",),
+                  style: TextStyle(fontSize: 35.0),
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                height: 50,
+//                width: 100,
+                child: RaisedButton(
+                  color: Colors.deepPurple,
+                  child: Text(
+                    "Pay",
+                    style: TextStyle(color: Colors.white,fontSize: 30),
+                  ),
+                  onPressed: () {
+                    openCheckout();
+                  },
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+  
+    void openCheckout() {
     var options = {
       "key": "rzp_test_fAnqgO09SPcqov",
       "amount": num.parse(textEditingController.text) * 100,
@@ -86,51 +133,5 @@ class _HomeState extends State<Home> {
       textColor: Colors.black54,
     );
   }
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => textFocusController.unfocus(),
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text("Razor Pay"),
-        ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: 200,
-                child: TextField(
-                  focusNode: textFocusController,
-                  cursorRadius: Radius.zero,
-                  textAlign: TextAlign.center,
-                  controller: textEditingController,
-                  decoration: InputDecoration(hintText: "Amount",),
-                  style: TextStyle(fontSize: 35.0),
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Container(
-                height: 50,
-//                width: 100,
-                child: RaisedButton(
-                  color: Colors.deepPurple,
-                  child: Text(
-                    "Pay",
-                    style: TextStyle(color: Colors.white,fontSize: 30),
-                  ),
-                  onPressed: () {
-                    openCheckout();
-                  },
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+  
 }
